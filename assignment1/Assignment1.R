@@ -90,3 +90,26 @@ print(paste("Estimated parameters: a =", estimated_a, "b =", estimated_b))
 #Question 6 
 t=6
 ret6 <- (b+t-1)/(a+b+t-1)
+
+#question 9
+# Required library
+a <- 0.955 
+b <- 1.929
+m <- 26.8
+d <- 0.0153
+
+tau<-1
+
+t<-seq(1,tau+200)
+r_pred<-r_sBG(a,b,t)
+S_pred<-cumprod(r_pred)
+
+S_shift<- S_pred[(tau+1):length(S_pred)]  # survival function from tau + 1 until T
+
+dis<-1/(1+d)^(t(1:200)-1) # discount rate
+
+
+RLV_sBG<-sum(m*S_shift/S_pred[tau]*dis)  # sum of margin x S(tau + t)/ S(tau) x discount
+
+RLV_sBG
+
